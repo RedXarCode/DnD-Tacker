@@ -117,7 +117,7 @@ def serve():
     return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/<path:path>')
-def static_proxy(path):
+def catch_all(path):
     if path.startswith('api/'):
         return "Not found", 404
     try:
