@@ -1,6 +1,7 @@
-from flask import request, jsonify
+from flask import request, jsonify, send_from_directory
 from config import app, db
 from models import Creature
+import os
 
 @app.route("/creatures", methods=["GET"])
 def get_creatures():
@@ -110,6 +111,16 @@ def duplicate_creature(creature_id):
         return jsonify({"message": str(e)}), 400
     
     return jsonify({"message": "Creature duplicated!"}), 201
+
+@app.route('/')
+def serve():
+    return send_from_directory(app.static_folder, 'index.html')
+
+@app.route('/<path:path>')
+def static_proxy(path):
+    if path.startswith('api/'):
+        return "Not found", 404
+    return send_from_directory(app.static_folder, 'index.html')
 
 if __name__ == "__main__":
     with app.app_context():
