@@ -13,7 +13,7 @@ function App() {
   }, [])
 
   const fetchCreatures = async () => {
-    const response = await fetch("http://127.0.0.1:5000/creatures")
+    const response = await fetch("https://xar-dnd-tracker-9fcf4057c8e5.herokuapp.com//creatures")
     const data = await response.json() 
     setCreatures(data.creatures)
     console.log(data.creatures)
