@@ -70,7 +70,7 @@ def update_creature(creature_id):
         creature.ac = "-"
 
     if not creature.conditions:
-        creature.conditions = "none"
+        creature.conditions = "-"
 
     db.session.commit()
 
