@@ -21,7 +21,7 @@ const CreatureForm = ({ existingCreature = {}, updateCallback}) => {
             ac,
             conditions
         }
-        const url = "http://127.0.0.1:5000/" + (updating ? `update_creature/${existingCreature.id}` : "create_creature")
+        const url = updating ? `/update_creature/${existingCreature.id}` : "/create_creature"
         const options = {
             method: updating ? "PATCH" : "POST",
             headers: {
