@@ -6,7 +6,7 @@ const CreatureList = ({creatures, updateCreature, updateCallback}) => {
             const options = {
                 method: "DELETE"
             }
-            const response = await fetch(`/delete_creature/${id}`, options)
+            const response = await fetch(`/api/delete_creature/${id}`, options)
             if (response.status === 200) {
                 updateCallback()
             } else {
@@ -22,7 +22,7 @@ const CreatureList = ({creatures, updateCreature, updateCallback}) => {
             const options = {
                 method: "POST"
             }
-            const response = await fetch(`/duplicate_creature/${id}`, options)
+            const response = await fetch(`/api/duplicate_creature/${id}`, options)
             if (response.status === 201) {
                 updateCallback()
             } else {

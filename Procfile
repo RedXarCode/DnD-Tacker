@@ -1,1 +1,1 @@
-web: cd backend && gunicorn main:app 
+web: cd frontend && npm run build && cd ../backend && gunicorn main:app 

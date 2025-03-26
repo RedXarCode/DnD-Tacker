@@ -3,13 +3,13 @@ from config import app, db
 from models import Creature
 import os
 
-@app.route("/creatures", methods=["GET"])
+@app.route("/api/creatures", methods=["GET"])
 def get_creatures():
     creatures = Creature.query.order_by(Creature.initiative.desc()).all()
     json_creatures = list(map(lambda x: x.to_json(), creatures))
     return jsonify({"creatures": json_creatures})
 
-@app.route("/create_creature", methods=["POST"])
+@app.route("/api/create_creature", methods=["POST"])
 def create_creature():
     name = request.json.get("name")
     initiative = request.json.get("initiative")
@@ -42,7 +42,7 @@ def create_creature():
     
     return jsonify({"message": "Creature added!"}), 201
 
-@app.route("/update_creature/<int:creature_id>", methods=["PATCH"])
+@app.route("/api/update_creature/<int:creature_id>", methods=["PATCH"])
 def update_creature(creature_id):
     creature = Creature.query.get(creature_id)
 
@@ -76,7 +76,7 @@ def update_creature(creature_id):
 
     return jsonify({"message:": "Creature updated"}), 200
 
-@app.route("/delete_creature/<int:creature_id>", methods=["DELETE"])
+@app.route("/api/delete_creature/<int:creature_id>", methods=["DELETE"])
 def delete_creature(creature_id):
     creature = Creature.query.get(creature_id)
 
@@ -88,7 +88,7 @@ def delete_creature(creature_id):
 
     return jsonify({"message": "Creature deleted"}), 200
 
-@app.route("/duplicate_creature/<int:creature_id>", methods=["POST"])
+@app.route("/api/duplicate_creature/<int:creature_id>", methods=["POST"])
 def duplicate_creature(creature_id):
     creature = Creature.query.get(creature_id)
 
@@ -120,7 +120,10 @@ def serve():
 def static_proxy(path):
     if path.startswith('api/'):
         return "Not found", 404
-    return send_from_directory(app.static_folder, 'index.html')
+    try:
+        return send_from_directory(app.static_folder, path)
+    except:
+        return send_from_directory(app.static_folder, 'index.html')
 
 if __name__ == "__main__":
     with app.app_context():

@@ -13,7 +13,7 @@ function App() {
   }, [])
 
   const fetchCreatures = async () => {
-    const response = await fetch("/creatures")
+    const response = await fetch("/api/creatures")
     const data = await response.json() 
     setCreatures(data.creatures)
     console.log(data.creatures)
